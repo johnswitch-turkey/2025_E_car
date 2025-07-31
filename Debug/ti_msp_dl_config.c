@@ -42,6 +42,7 @@
 
 DL_TimerA_backupConfig gPWM_ENCODERBackup;
 DL_TimerA_backupConfig gTIMER_LOGICBackup;
+DL_UART_Main_backupConfig gUART_STMBackup;
 
 /*
  *  ======== SYSCFG_DL_init ========
@@ -57,10 +58,12 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     SYSCFG_DL_TIMER_LOGIC_init();
     SYSCFG_DL_TIMER_BUTTON_init();
     SYSCFG_DL_UART_TJC_init();
+    SYSCFG_DL_UART_STM_init();
+    SYSCFG_DL_UART_CV_init();
     /* Ensure backup structures have no valid state */
 	gPWM_ENCODERBackup.backupRdy 	= false;
 	gTIMER_LOGICBackup.backupRdy 	= false;
-
+	gUART_STMBackup.backupRdy 	= false;
 
 }
 /*
@@ -73,6 +76,7 @@ SYSCONFIG_WEAK bool SYSCFG_DL_saveConfiguration(void)
 
 	retStatus &= DL_TimerA_saveConfiguration(PWM_ENCODER_INST, &gPWM_ENCODERBackup);
 	retStatus &= DL_TimerA_saveConfiguration(TIMER_LOGIC_INST, &gTIMER_LOGICBackup);
+	retStatus &= DL_UART_Main_saveConfiguration(UART_STM_INST, &gUART_STMBackup);
 
     return retStatus;
 }
@@ -84,6 +88,7 @@ SYSCONFIG_WEAK bool SYSCFG_DL_restoreConfiguration(void)
 
 	retStatus &= DL_TimerA_restoreConfiguration(PWM_ENCODER_INST, &gPWM_ENCODERBackup, false);
 	retStatus &= DL_TimerA_restoreConfiguration(TIMER_LOGIC_INST, &gTIMER_LOGICBackup, false);
+	retStatus &= DL_UART_Main_restoreConfiguration(UART_STM_INST, &gUART_STMBackup);
 
     return retStatus;
 }
@@ -96,6 +101,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_TimerA_reset(TIMER_LOGIC_INST);
     DL_TimerG_reset(TIMER_BUTTON_INST);
     DL_UART_Main_reset(UART_TJC_INST);
+    DL_UART_Main_reset(UART_STM_INST);
+    DL_UART_Main_reset(UART_CV_INST);
 
     DL_GPIO_enablePower(GPIOA);
     DL_GPIO_enablePower(GPIOB);
@@ -103,6 +110,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_TimerA_enablePower(TIMER_LOGIC_INST);
     DL_TimerG_enablePower(TIMER_BUTTON_INST);
     DL_UART_Main_enablePower(UART_TJC_INST);
+    DL_UART_Main_enablePower(UART_STM_INST);
+    DL_UART_Main_enablePower(UART_CV_INST);
     delay_cycles(POWER_STARTUP_DELAY);
 }
 
@@ -118,6 +127,14 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
         GPIO_UART_TJC_IOMUX_TX, GPIO_UART_TJC_IOMUX_TX_FUNC);
     DL_GPIO_initPeripheralInputFunction(
         GPIO_UART_TJC_IOMUX_RX, GPIO_UART_TJC_IOMUX_RX_FUNC);
+    DL_GPIO_initPeripheralOutputFunction(
+        GPIO_UART_STM_IOMUX_TX, GPIO_UART_STM_IOMUX_TX_FUNC);
+    DL_GPIO_initPeripheralInputFunction(
+        GPIO_UART_STM_IOMUX_RX, GPIO_UART_STM_IOMUX_RX_FUNC);
+    DL_GPIO_initPeripheralOutputFunction(
+        GPIO_UART_CV_IOMUX_TX, GPIO_UART_CV_IOMUX_TX_FUNC);
+    DL_GPIO_initPeripheralInputFunction(
+        GPIO_UART_CV_IOMUX_RX, GPIO_UART_CV_IOMUX_RX_FUNC);
 
     DL_GPIO_initDigitalOutput(GPIO_LEDS_PIN_LED_1_IOMUX);
 
@@ -189,21 +206,21 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_PULL_UP,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_clearPins(GPIOA, GPIO_DIRS_DIR_R1_PIN);
-    DL_GPIO_enableOutput(GPIOA, GPIO_DIRS_DIR_R1_PIN);
+    DL_GPIO_clearPins(GPIOA, GPIO_DIRS_DIR_R1_PIN |
+		GPIO_DIRS_PIN_R2_PIN |
+		GPIO_GREY_SENSOR_R2_PIN);
+    DL_GPIO_enableOutput(GPIOA, GPIO_DIRS_DIR_R1_PIN |
+		GPIO_DIRS_PIN_R2_PIN |
+		GPIO_GREY_SENSOR_R2_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOA, DL_GPIO_PIN_12_EDGE_RISE_FALL);
     DL_GPIO_clearInterruptStatus(GPIOA, KEYS_KEY4_PIN);
     DL_GPIO_enableInterrupt(GPIOA, KEYS_KEY4_PIN);
     DL_GPIO_clearPins(GPIOB, GPIO_LEDS_PIN_LED_1_PIN |
 		GPIO_DIRS_DIR_L1_PIN |
-		GPIO_DIRS_DIR_L2_PIN |
-		GPIO_DIRS_PIN_R2_PIN |
-		GPIO_GREY_SENSOR_R2_PIN);
+		GPIO_DIRS_DIR_L2_PIN);
     DL_GPIO_enableOutput(GPIOB, GPIO_LEDS_PIN_LED_1_PIN |
 		GPIO_DIRS_DIR_L1_PIN |
-		GPIO_DIRS_DIR_L2_PIN |
-		GPIO_DIRS_PIN_R2_PIN |
-		GPIO_GREY_SENSOR_R2_PIN);
+		GPIO_DIRS_DIR_L2_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOB, DL_GPIO_PIN_15_EDGE_RISE |
 		DL_GPIO_PIN_14_EDGE_RISE_FALL);
     DL_GPIO_setUpperPinsPolarity(GPIOB, DL_GPIO_PIN_18_EDGE_RISE |
@@ -427,5 +444,67 @@ SYSCONFIG_WEAK void SYSCFG_DL_UART_TJC_init(void)
 
 
     DL_UART_Main_enable(UART_TJC_INST);
+}
+static const DL_UART_Main_ClockConfig gUART_STMClockConfig = {
+    .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
+    .divideRatio = DL_UART_MAIN_CLOCK_DIVIDE_RATIO_1
+};
+
+static const DL_UART_Main_Config gUART_STMConfig = {
+    .mode        = DL_UART_MAIN_MODE_NORMAL,
+    .direction   = DL_UART_MAIN_DIRECTION_TX_RX,
+    .flowControl = DL_UART_MAIN_FLOW_CONTROL_NONE,
+    .parity      = DL_UART_MAIN_PARITY_NONE,
+    .wordLength  = DL_UART_MAIN_WORD_LENGTH_8_BITS,
+    .stopBits    = DL_UART_MAIN_STOP_BITS_ONE
+};
+
+SYSCONFIG_WEAK void SYSCFG_DL_UART_STM_init(void)
+{
+    DL_UART_Main_setClockConfig(UART_STM_INST, (DL_UART_Main_ClockConfig *) &gUART_STMClockConfig);
+
+    DL_UART_Main_init(UART_STM_INST, (DL_UART_Main_Config *) &gUART_STMConfig);
+    /*
+     * Configure baud rate by setting oversampling and baud rate divisors.
+     *  Target baud rate: 115200
+     *  Actual baud rate: 115190.78
+     */
+    DL_UART_Main_setOversampling(UART_STM_INST, DL_UART_OVERSAMPLING_RATE_16X);
+    DL_UART_Main_setBaudRateDivisor(UART_STM_INST, UART_STM_IBRD_80_MHZ_115200_BAUD, UART_STM_FBRD_80_MHZ_115200_BAUD);
+
+
+
+    DL_UART_Main_enable(UART_STM_INST);
+}
+static const DL_UART_Main_ClockConfig gUART_CVClockConfig = {
+    .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
+    .divideRatio = DL_UART_MAIN_CLOCK_DIVIDE_RATIO_1
+};
+
+static const DL_UART_Main_Config gUART_CVConfig = {
+    .mode        = DL_UART_MAIN_MODE_NORMAL,
+    .direction   = DL_UART_MAIN_DIRECTION_TX_RX,
+    .flowControl = DL_UART_MAIN_FLOW_CONTROL_NONE,
+    .parity      = DL_UART_MAIN_PARITY_NONE,
+    .wordLength  = DL_UART_MAIN_WORD_LENGTH_8_BITS,
+    .stopBits    = DL_UART_MAIN_STOP_BITS_ONE
+};
+
+SYSCONFIG_WEAK void SYSCFG_DL_UART_CV_init(void)
+{
+    DL_UART_Main_setClockConfig(UART_CV_INST, (DL_UART_Main_ClockConfig *) &gUART_CVClockConfig);
+
+    DL_UART_Main_init(UART_CV_INST, (DL_UART_Main_Config *) &gUART_CVConfig);
+    /*
+     * Configure baud rate by setting oversampling and baud rate divisors.
+     *  Target baud rate: 115200
+     *  Actual baud rate: 115190.78
+     */
+    DL_UART_Main_setOversampling(UART_CV_INST, DL_UART_OVERSAMPLING_RATE_16X);
+    DL_UART_Main_setBaudRateDivisor(UART_CV_INST, UART_CV_IBRD_40_MHZ_115200_BAUD, UART_CV_FBRD_40_MHZ_115200_BAUD);
+
+
+
+    DL_UART_Main_enable(UART_CV_INST);
 }
 

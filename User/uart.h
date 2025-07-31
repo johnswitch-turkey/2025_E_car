@@ -6,4 +6,6 @@
 extern int16_t cy ;
 extern int16_t cx ;
 
+void send_string(const char* str);
+
 #endif

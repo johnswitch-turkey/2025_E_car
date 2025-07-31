@@ -78,7 +78,8 @@ empty.o: ../empty.c \
  C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/motor.h \
  C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/control.h \
  C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/encoder.h \
- C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/pid.h
+ C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/pid.h \
+ C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/uart.h
 ti_msp_dl_config.h:
 C:/ti/mspm0_sdk_2_05_01_00/source/ti/devices/msp/msp.h:
 C:/ti/mspm0_sdk_2_05_01_00/source/ti/devices/DeviceFamily.h:
@@ -157,3 +158,4 @@ C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/motor.
 C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/control.h:
 C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/encoder.h:
 C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/pid.h:
+C:/Users/23092/workspace_ccstheia/empty_LP_MSPM0G3507_nortos_ticlang/User/uart.h:

@@ -36,6 +36,7 @@
 #include "control.h"
 #include "encoder.h"
 #include "pid.h"
+#include "uart.h"
 
 int main(void)
 {
@@ -52,8 +53,6 @@ int main(void)
 
     NVIC_ClearPendingIRQ(GPIO_MULTIPLE_GPIOB_INT_IRQN);
     NVIC_EnableIRQ(GPIO_MULTIPLE_GPIOB_INT_IRQN);
-    // NVIC_ClearPendingIRQ(ENCODERB_INT_IRQN);
-    // NVIC_EnableIRQ(ENCODERB_INT_IRQN);
 
     DL_GPIO_setPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
     DL_GPIO_clearPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
@@ -66,7 +65,8 @@ int main(void)
 
 
     while (1) {
-        
+        // send_string ("1");
+        // control();
         // delay_cycles(40000000);
     }
 }

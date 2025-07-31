@@ -12,12 +12,14 @@ void TIMER_LOGIC_INST_IRQHandler(void){
     switch (DL_TimerA_getPendingInterrupt(TIMER_LOGIC_INST)) {
         case DL_TIMERA_IIDX_ZERO:
             DL_TimerA_clearInterruptStatus(TIMER_LOGIC_INST, DL_TIMERA_INTERRUPT_ZERO_EVENT);
-            control();
+            // control();
 
         default:
             break;
     }
+}
 
+void TIMER_BUTTON_INST_IRQHandler(void){
     switch (DL_TimerG_getPendingInterrupt(TIMER_BUTTON_INST)) {
         case DL_TIMERG_IIDX_ZERO:
             DL_TimerA_clearInterruptStatus(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
@@ -36,6 +38,7 @@ void TIMER_LOGIC_INST_IRQHandler(void){
     default:
             break;
     }
+
 }
 
 void NMI_Handler(void)
@@ -121,10 +124,7 @@ void UART0_IRQHandler(void)
     __BKPT();
 }
 
-void TIMG0_IRQHandler(void)
-{
-    __BKPT();
-}
+
 
 void TIMG6_IRQHandler(void)
 {

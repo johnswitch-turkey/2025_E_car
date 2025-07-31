@@ -1,6 +1,11 @@
 #include "uart.h"
 #include "ti_msp_dl_config.h"
 
+
+
+#include <stdio.h>
+#include <string.h>
+
 // 定义接收状态枚举
 typedef enum {
     WAIT_COLON,    // 等待冒号':'
@@ -82,3 +87,54 @@ void UART_TJC_INST_IRQHandler(void)
             break;
     }
 }
+
+
+
+
+
+
+// 发送单个字符的函数
+int fputc(int c, FILE* stream)
+{
+    // 调用DL_UART_Main_transmitDataBlocking函数，将字符c通过UART_0_INST发送出去
+    DL_UART_Main_transmitDataBlocking(UART_CV_INST, c);
+    // 返回字符c
+    return c;
+}
+
+// 发送字符串的函数
+int fputs(const char* restrict s, FILE* restrict stream)
+{
+    // 定义变量i和len，分别用于循环和存储字符串s的长度
+    uint16_t i, len;
+    // 获取字符串s的长度
+    len = strlen(s);
+    // 循环遍历字符串s的每个字符
+    for(i=0; i<len; i++)
+    {
+        // 将字符串s的每个字符通过UART_0_INST发送出去
+        DL_UART_Main_transmitDataBlocking(UART_CV_INST, s[i]);
+    }
+    // 返回写入的字符数
+    return len;
+}
+
+// 发送字符串并添加换行符的函数
+int puts(const char *_ptr)
+{
+    // 使用fputs函数将字符串输出到标准输出流
+    int count = fputs(_ptr, stdout);
+    // 使用fputs函数将换行符输出到标准输出流
+    count += fputs("\n", stdout);
+    // 返回输出字符的个数
+    return count;
+}
+
+// 简化的字符串发送函数
+void send_string(const char* str)
+{
+    // 直接调用fputs函数发送字符串
+    fputs(str, stdout);
+}
+
+
