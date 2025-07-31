@@ -25,11 +25,8 @@
 
 void Motor_SetSpeed(int32_t speed1, int32_t speed2);
 
-void motor1_enable(void);
-void motor2_enable(void);
-
-void motor1_disable(void);
-void motor2_disable(void);
+void Motor_Enable(void);
+void Motor_Disable(void);
 
 float Limit_speed (float * val );
 

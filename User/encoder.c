@@ -11,7 +11,7 @@ volatile ButtonState buttonState = BUTTON_RELEASED;
 // 定时器计数变量（毫秒计数）
 volatile uint32_t pressDurationMs = 0;
 
-
+volatile uint8_t tar_circle = 2;
 
 
 uint32_t gpio_interrup1,gpio_interrup2;
@@ -81,7 +81,7 @@ void GROUP1_IRQHandler(void)
 
 	if ((gpio_interrupt_key & KEYS_KEY1_PIN)==KEYS_KEY1_PIN)
 	{
-		uint8_t currentState = DL_GPIO_readPins(KEYS_KEY1_PORT, KEYS_KEY1_PIN);
+		uint8_t currentState = DL_GPIO_readPins(KEYS_PORT, KEYS_KEY1_PIN);
 		 if (currentState == 0) { // 按键按下（假设低电平有效）
             // 启动定时器
             DL_Timer_startCounter(TIMER_BUTTON_INST);
@@ -95,6 +95,10 @@ void GROUP1_IRQHandler(void)
                 if (pressDurationMs < LONG_PRESS_THRESHOLD_MS) {
                     // 短按处理
                     // 可以在这里调用短按处理函数
+					tar_circle++;
+					if (tar_circle == 6) {
+						tar_circle = 0;
+					}
                 }
             }
             

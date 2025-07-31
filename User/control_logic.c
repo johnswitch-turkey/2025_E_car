@@ -3,7 +3,6 @@
 //#include "uart.h"
 #include "ti_msp_dl_config.h"
 
-
 #include "encoder.h"
 
 
@@ -32,6 +31,7 @@ void TIMER_BUTTON_INST_IRQHandler(void){
                 DL_Timer_stopCounter(TIMER_BUTTON_INST);
                 pressDurationMs = 0;
                 // 可以在这里调用长按处理函数
+                current_state = GO_STRAIGHT;
             }
 
         }

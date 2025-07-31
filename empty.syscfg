@@ -157,6 +157,8 @@ GPIO6.associatedPins[3].internalResistor  = "PULL_UP";
 GPIO6.associatedPins[3].interruptEn       = true;
 GPIO6.associatedPins[3].interruptPriority = "0";
 GPIO6.associatedPins[3].polarity          = "RISE_FALL";
+GPIO6.associatedPins[3].assignedPort      = "PORTB";
+GPIO6.associatedPins[3].assignedPin       = " 21";
 
 PWM1.$name                              = "PWM_ENCODER";
 PWM1.timerCount                         = 2000;
@@ -244,7 +246,7 @@ UART3.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-GPIO1.associatedPins[3].pin.$suggestSolution = "PA16";
+GPIO1.associatedPins[3].pin.$suggestSolution = "PA12";
 Board.peripheral.$suggestSolution            = "DEBUGSS";
 Board.peripheral.swclkPin.$suggestSolution   = "PA20";
 Board.peripheral.swdioPin.$suggestSolution   = "PA19";
@@ -252,7 +254,7 @@ GPIO4.associatedPins[1].pin.$suggestSolution = "PB17";
 GPIO6.associatedPins[0].pin.$suggestSolution = "PB14";
 GPIO6.associatedPins[1].pin.$suggestSolution = "PB19";
 GPIO6.associatedPins[2].pin.$suggestSolution = "PB20";
-GPIO6.associatedPins[3].pin.$suggestSolution = "PA12";
+GPIO6.associatedPins[3].pin.$suggestSolution = "PB21";
 TIMER2.peripheral.$suggestSolution           = "TIMG0";
 UART2.peripheral.$suggestSolution            = "UART3";
 UART2.peripheral.rxPin.$suggestSolution      = "PA13";

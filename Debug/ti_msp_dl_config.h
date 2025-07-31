@@ -182,10 +182,10 @@ extern "C" {
 #define GPIO_DIRS_DIR_R1_PORT                                            (GPIOA)
 #define GPIO_DIRS_DIR_R1_PIN                                    (DL_GPIO_PIN_26)
 #define GPIO_DIRS_DIR_R1_IOMUX                                   (IOMUX_PINCM59)
-/* Defines for PIN_R2: GPIOA.16 with pinCMx 38 on package pin 9 */
+/* Defines for PIN_R2: GPIOA.12 with pinCMx 34 on package pin 5 */
 #define GPIO_DIRS_PIN_R2_PORT                                            (GPIOA)
-#define GPIO_DIRS_PIN_R2_PIN                                    (DL_GPIO_PIN_16)
-#define GPIO_DIRS_PIN_R2_IOMUX                                   (IOMUX_PINCM38)
+#define GPIO_DIRS_PIN_R2_PIN                                    (DL_GPIO_PIN_12)
+#define GPIO_DIRS_PIN_R2_IOMUX                                   (IOMUX_PINCM34)
 /* Defines for L3: GPIOA.23 with pinCMx 53 on package pin 24 */
 #define GPIO_GREY_SENSOR_L3_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_L3_PIN                                 (DL_GPIO_PIN_23)
@@ -219,7 +219,7 @@ extern "C" {
 
 /* Defines for E1A: GPIOB.18 with pinCMx 44 on package pin 15 */
 // groups represented: ["ENCODERB","KEYS","ENCODERA"]
-// pins affected: ["E2A","E2B","KEY1","KEY2","KEY3","E1A","E1B"]
+// pins affected: ["E2A","E2B","KEY1","KEY2","KEY3","KEY4","E1A","E1B"]
 #define GPIO_MULTIPLE_GPIOB_INT_IRQN                            (GPIOB_INT_IRQn)
 #define GPIO_MULTIPLE_GPIOB_INT_IIDX            (DL_INTERRUPT_GROUP1_IIDX_GPIOB)
 #define ENCODERA_E1A_IIDX                                   (DL_GPIO_IIDX_DIO18)
@@ -240,29 +240,25 @@ extern "C" {
 #define ENCODERB_E2B_IIDX                                   (DL_GPIO_IIDX_DIO16)
 #define ENCODERB_E2B_PIN                                        (DL_GPIO_PIN_16)
 #define ENCODERB_E2B_IOMUX                                       (IOMUX_PINCM33)
+/* Port definition for Pin Group KEYS */
+#define KEYS_PORT                                                        (GPIOB)
+
 /* Defines for KEY1: GPIOB.14 with pinCMx 31 on package pin 2 */
-#define KEYS_KEY1_PORT                                                   (GPIOB)
 #define KEYS_KEY1_IIDX                                      (DL_GPIO_IIDX_DIO14)
 #define KEYS_KEY1_PIN                                           (DL_GPIO_PIN_14)
 #define KEYS_KEY1_IOMUX                                          (IOMUX_PINCM31)
 /* Defines for KEY2: GPIOB.19 with pinCMx 45 on package pin 16 */
-#define KEYS_KEY2_PORT                                                   (GPIOB)
 #define KEYS_KEY2_IIDX                                      (DL_GPIO_IIDX_DIO19)
 #define KEYS_KEY2_PIN                                           (DL_GPIO_PIN_19)
 #define KEYS_KEY2_IOMUX                                          (IOMUX_PINCM45)
 /* Defines for KEY3: GPIOB.20 with pinCMx 48 on package pin 19 */
-#define KEYS_KEY3_PORT                                                   (GPIOB)
 #define KEYS_KEY3_IIDX                                      (DL_GPIO_IIDX_DIO20)
 #define KEYS_KEY3_PIN                                           (DL_GPIO_PIN_20)
 #define KEYS_KEY3_IOMUX                                          (IOMUX_PINCM48)
-/* Defines for KEY4: GPIOA.12 with pinCMx 34 on package pin 5 */
-#define KEYS_KEY4_PORT                                                   (GPIOA)
-// pins affected by this interrupt request:["KEY4"]
-#define KEYS_GPIOA_INT_IRQN                                     (GPIOA_INT_IRQn)
-#define KEYS_GPIOA_INT_IIDX                     (DL_INTERRUPT_GROUP1_IIDX_GPIOA)
-#define KEYS_KEY4_IIDX                                      (DL_GPIO_IIDX_DIO12)
-#define KEYS_KEY4_PIN                                           (DL_GPIO_PIN_12)
-#define KEYS_KEY4_IOMUX                                          (IOMUX_PINCM34)
+/* Defines for KEY4: GPIOB.21 with pinCMx 49 on package pin 20 */
+#define KEYS_KEY4_IIDX                                      (DL_GPIO_IIDX_DIO21)
+#define KEYS_KEY4_PIN                                           (DL_GPIO_PIN_21)
+#define KEYS_KEY4_IOMUX                                          (IOMUX_PINCM49)
 
 /* clang-format on */
 

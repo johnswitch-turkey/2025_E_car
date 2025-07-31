@@ -16,11 +16,11 @@ volatile uint8_t Line_flag = 0;
 // float g_fSpeedControlOut_Y,g_fSpeedControlOutOld_Y;//X方向速度环输出
 
 
-uint8_t corner_count = 0;
+volatile uint8_t corner_count = 0; // 记录走过角落数
 
+volatile uint8_t cur_circle = 0; // 记录走过圈数
 
-
-ControlState current_state = GO_STRAIGHT;
+ControlState current_state = STOP;
 
 uint32_t total_pulse_x = 0;
 uint32_t total_pulse_y = 0;
@@ -39,6 +39,9 @@ void control(void){
 
 	switch(current_state){
 		case GO_STRAIGHT:
+		if (cur_circle == tar_circle){
+			Motor_Disable();
+		}
 					// actual_speedX = Get_Encoder_countA;
 					// actual_speedY = Get_Encoder_countB;
 					// set_pid_target(&pid_speedX, 1600+Line_Num);
@@ -56,6 +59,10 @@ void control(void){
 			break;
 		case TURN_LEFT:
 			corner_count ++;
+			if (corner_count == 4){
+				corner_count = 0;
+				cur_circle ++;
+			}
 			Motor_SetSpeed(2300, 700);
 			delay_cycles(80000000);
 			current_state = GO_STRAIGHT;
