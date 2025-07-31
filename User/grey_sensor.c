@@ -19,55 +19,53 @@ void Light_GoStraight_control(void)   //灰度巡线直行, 需要有个判断�
 	  Get_Light_TTL();  
 	  
 	if(L3_Val == 0 && L2_Val == 0) {
-		Line_Num = 80;  
+		Line_Num = 75;  
 		sensor_state = L3;
 		current_state = TURN_LEFT;
-		
-	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 1) {
-		Line_Num = 75;
+	}  
+	// else if (L3_Val == 0 && L2_Val == 0 && L1_Val == 1) {
+	// 	Line_Num = 70;
+	// 	sensor_state = L3_L2;
+	// } 
+	else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 1) {
+		Line_Num = 95;
 		sensor_state = L2;
-	} else if (L3_Val == 0 && L2_Val == 0 && L1_Val == 1) {
+	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 0 && M_Val == 1) {
 		Line_Num = 70;
-		sensor_state = L3_L2;
-	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 1) {
-		Line_Num = 65;
-		sensor_state = L2;
-	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 0) {
-		Line_Num = 60;
 		sensor_state = L2_L1;	
 	} else if (L2_Val == 1 && L1_Val == 0 && M_Val == 1) {
-		Line_Num = 50;
+		Line_Num = 40;
 		sensor_state = L1;  
-	} else if (L1_Val == 0 && M_Val == 0 && R1_Val == 1) {
+	} else if (L2_Val == 1 && L1_Val == 0 && M_Val == 0 && R1_Val == 1) {
 		Line_Num = 30;
 		sensor_state = L1_M;   
 	}else if (L1_Val == 1 && M_Val == 0 && R1_Val == 1) {
 		Line_Num = 0;
 		sensor_state = M;   
 		
-	} else if (L1_Val == 1 && M_Val == 0 && R1_Val == 0) {
+	} else if (L1_Val == 1 && M_Val == 0 && R1_Val == 0 && R2_Val == 1) {
 		Line_Num = -30;
 		sensor_state = M_R1;   
 	} else if ( M_Val == 1 && R1_Val == 0&& R2_Val == 1) {
-		Line_Num = -50;
+		Line_Num = -40;
 		sensor_state = R1; 
-	} else if (R1_Val == 0 && R2_Val == 0 && R3_Val == 1 ) {
-		Line_Num = -60;
-		sensor_state = R1_R2; 
-	} else if (R1_Val == 1 &&R2_Val == 0 && R3_Val == 1 ) {
-		Line_Num = -65;
-		sensor_state = R2;
-	} else if ( R3_Val == 1 && R2_Val == 0 && R3_Val == 0) {
+	} else if (M_Val == 1 && R1_Val == 0 && R2_Val == 0 && R3_Val == 1 ) {
 		Line_Num = -70;
-		sensor_state = R2_R3;  
-	}  
-	else if( R3_Val == 1 && R2_Val == 0) {
+		sensor_state = R1_R2; 
+	} else if (R1_Val == 1 && R2_Val == 0 && R3_Val == 1 ) {
+		Line_Num = -95;
+		sensor_state = R2;
+	} 
+	// else if ( R3_Val == 1 && R2_Val == 0 && R3_Val == 0) {
+	// 	Line_Num = -70;
+	// 	sensor_state = R2_R3;  
+	// }  
+	else if( R3_Val == 0 && R2_Val == 0) {
 		Line_Num = -75;
 		sensor_state = R3;  
+		current_state = TURN_RIGHT;
 	}
 }
-
-
 
 
 //把灰度传感器当作只输出高低电平。 高电平是识别到红线了。
