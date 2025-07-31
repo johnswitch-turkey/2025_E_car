@@ -5,25 +5,51 @@
 
 
 /*******************驱动相关************************/
-void Motor_SetSpeed(uint16_t speed1, uint16_t speed2) {
+void Motor_SetSpeed(int32_t speed1, int32_t speed2) {
+    uint16_t abs_speed1;
+    uint16_t abs_speed2;
+    if (speed1 > 0){
+        DL_GPIO_clearPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
+        DL_GPIO_setPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
+        abs_speed1 = speed1;
+    } else if (speed1 < 0){
+        DL_GPIO_setPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
+        DL_GPIO_clearPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
+        abs_speed1 = -speed1;
+    }
+    else {
+        DL_TimerA_stopCounter(PWM_ENCODER_INST);
+    }
+    if (speed2 > 0){
+        DL_GPIO_clearPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
+        DL_GPIO_setPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
+        abs_speed2 = speed2;
+    }
+    else if (speed2 < 0){
+        DL_GPIO_setPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
+        DL_GPIO_clearPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
+        abs_speed2 = -speed2;
+    }
+    else{
+        DL_TimerA_stopCounter(PWM_ENCODER_INST);
+    }
+
     static uint16_t speed1_out;
     static uint16_t speed2_out;
-	if (speed1 == 0 ) {
-        DL_TimerA_stopCounter(PWM_ENCODER_INST);
-    } else {
-        speed1_out = 2000 - speed1;
+
+        speed1_out = 2000 - abs_speed1;
 		DL_TimerA_stopCounter(PWM_ENCODER_INST);
         //MOTOR_TIM.Instance->CCR1 = speed1;
         DL_TimerG_setCaptureCompareValue(PWM_ENCODER_INST,(uint32_t)speed1_out,DL_TIMERA_CAPTURE_COMPARE_0_INDEX);
         // MOTOR_TIM.Instance->EGR = TIM_EGR_UG;
         // PWM_ENCODER_INST->CONTROL |= GPT_CONTROL_LOAD_MASK;
 		DL_TimerA_startCounter(PWM_ENCODER_INST);
-    }
+    
 
-	if (speed2 == 0 ) {
-        DL_TimerA_stopCounter(PWM_ENCODER_INST);
-    } else {
-        speed2_out = 2000 - speed2;
+
+        
+
+        speed2_out = 2000 - abs_speed2;
         DL_TimerA_stopCounter(PWM_ENCODER_INST);
         //MOTOR_TIM.Instance->CCR1 = speed1;
         DL_TimerG_setCaptureCompareValue(PWM_ENCODER_INST,(uint32_t)speed2_out,DL_TIMERA_CAPTURE_COMPARE_1_INDEX);
@@ -31,7 +57,7 @@ void Motor_SetSpeed(uint16_t speed1, uint16_t speed2) {
         // PWM_ENCODER_INST->CONTROL |= GPT_CONTROL_LOAD_MASK;
 		DL_TimerA_startCounter(PWM_ENCODER_INST);
     }
-}
+
 
 void Motor_Enable(void){
     DL_TimerA_startCounter(PWM_ENCODER_INST);
@@ -55,6 +81,9 @@ float Limit_speed (float * val )
     return * val;
 								
 }
+
+
+
 
 /*******************编码器相关************************/
 

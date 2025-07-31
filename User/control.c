@@ -38,61 +38,30 @@ void control(void){
 
 	switch(current_state){
 		case GO_STRAIGHT:
-
 					actual_speedX = Get_Encoder_countA;
 					actual_speedY = Get_Encoder_countB;
-					total_pulse_x += actual_speedX;
-					total_pulse_y += actual_speedY;
-					// set_pid_target(&pid_speedX, 400+Line_Num);
-					// set_pid_target(&pid_speedY, 400-Line_Num);
-					// cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX*57);
-					// cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY*57);
-					// x_out_pwm = Limit_speed (&cont_val_X);
-					// y_out_pwm = Limit_speed (&cont_val_Y);
+					set_pid_target(&pid_speedX, 400+Line_Num);
+					set_pid_target(&pid_speedY, 400-Line_Num);
+					cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX*27);
+					cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY*27);
+					x_out_pwm = Limit_speed (&cont_val_X);
+					y_out_pwm = Limit_speed (&cont_val_Y);
 
 					Get_Encoder_countA = 0;
 					Get_Encoder_countB = 0;
 
-				// Motor_SetSpeed(x_out_pwm, y_out_pwm);
+				Motor_SetSpeed((int32_t)x_out_pwm, (int32_t)y_out_pwm);
 			break;
 		case TURN_LEFT:
-			switch (sensor_state){
+			Motor_SetSpeed(1000, 2000);
 
-				case L3: 
-					Motor_SetSpeed(500, 500); 
-					break;
-				case L3_L2: 
-					Motor_SetSpeed(500, 500);
-					break;
-				case L2: 
-					Motor_SetSpeed(500, 500);
-					break;
-				case L2_L1: 
-					Motor_SetSpeed(500, 500);
-					break;
-				case L1: 
-					Motor_SetSpeed(500, 500);
-					break;
-				case L1_M: 
-					Motor_SetSpeed(500, 500);
-					break;
-				case M: 
-					current_state = GO_STRAIGHT;
+			break;
 
-					break;
-				case M_R1:
-					Motor_SetSpeed(500, 500);
-					break;
-				case R1:
-				case R1_R2:
-				case R2:
-				case R2_R3:
-				case R3:
-				break;
-			}
 
 			
-			break;
+
+			
+
 		case TURN_RIGHT:
 			//右转
 			Motor_SetSpeed(500, 300);

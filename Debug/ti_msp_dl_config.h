@@ -102,7 +102,7 @@ extern "C" {
 #define TIMER_LOGIC_INST                                                 (TIMA1)
 #define TIMER_LOGIC_INST_IRQHandler                             TIMA1_IRQHandler
 #define TIMER_LOGIC_INST_INT_IRQN                               (TIMA1_INT_IRQn)
-#define TIMER_LOGIC_INST_LOAD_VALUE                                      (9999U)
+#define TIMER_LOGIC_INST_LOAD_VALUE                                     (19999U)
 /* Defines for TIMER_BUTTON */
 #define TIMER_BUTTON_INST                                                (TIMG0)
 #define TIMER_BUTTON_INST_IRQHandler                            TIMG0_IRQHandler

@@ -23,7 +23,7 @@
 #define MOTOR1_CHANNEL TIM_CHANNEL_1
 #define MOTOR2_CHANNEL TIM_CHANNEL_2
 
-void Motor_SetSpeed(uint16_t speed1, uint16_t speed2);
+void Motor_SetSpeed(int32_t speed1, int32_t speed2);
 
 void motor1_enable(void);
 void motor2_enable(void);
@@ -31,7 +31,7 @@ void motor2_enable(void);
 void motor1_disable(void);
 void motor2_disable(void);
 
-
+float Limit_speed (float * val );
 
 extern long g_lMotorPulseSigma;//电机25ms内累计脉冲总和
 extern long g_lMotor2PulseSigma;
