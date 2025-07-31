@@ -59,8 +59,8 @@ int main(void)
     DL_GPIO_clearPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
     DL_GPIO_setPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
     Motor_SetSpeed(1600, 1600);
-    set_p_i_d(&pid_speedX, 1.0, 0.3, 0.0);
-    set_p_i_d(&pid_speedY, 1.0, 0.3, 0.0);
+    // set_p_i_d(&pid_speedX, 1.0, 0.3, 0.0);
+    // set_p_i_d(&pid_speedY, 1.0, 0.3, 0.0);
 
 
 

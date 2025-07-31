@@ -9,25 +9,25 @@ void Motor_SetSpeed(int32_t speed1, int32_t speed2) {
     uint16_t abs_speed1;
     uint16_t abs_speed2;
     if (speed1 > 0){
-        DL_GPIO_clearPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
-        DL_GPIO_setPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
-        abs_speed1 = speed1;
-    } else if (speed1 < 0){
         DL_GPIO_setPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
         DL_GPIO_clearPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
+        abs_speed1 = speed1;
+    } else if (speed1 < 0){
+        DL_GPIO_clearPins(GPIO_DIRS_DIR_L1_PORT, GPIO_DIRS_DIR_L1_PIN);
+        DL_GPIO_setPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
         abs_speed1 = -speed1;
     }
     else {
         DL_TimerA_stopCounter(PWM_ENCODER_INST);
     }
     if (speed2 > 0){
-        DL_GPIO_clearPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
-        DL_GPIO_setPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
+        DL_GPIO_setPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
+        DL_GPIO_clearPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
         abs_speed2 = speed2;
     }
     else if (speed2 < 0){
-        DL_GPIO_setPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
-        DL_GPIO_clearPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
+        DL_GPIO_clearPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
+        DL_GPIO_setPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
         abs_speed2 = -speed2;
     }
     else{

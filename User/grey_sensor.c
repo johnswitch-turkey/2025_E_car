@@ -7,11 +7,10 @@
 //用来巡线的 '灰度传感器' 和 用来检测是否放上药品的 '红外传感器' 的代码都放在这个.c文件里了
 
 uint8_t L3_Val,L2_Val, L1_Val, M_Val, R1_Val, R2_Val,R3_Val;
-int Line_Num;
+int Line_Num = 0;
 
-SensorState sensor_state;
+SensorState sensor_state ;
 
-uint8_t corner_count = 0;
 
 /*******************灰度传感器巡线*************/
 //只要把速度环控制好，补偿值即可确定。  不同速度值需要不同的补偿值。  测试好一个最好的。  不同的转速要对应不同的补偿系数或数值
@@ -19,35 +18,51 @@ void Light_GoStraight_control(void)   //灰度巡线直行, 需要有个判断�
 {
 	  Get_Light_TTL();  
 	  
-	if(L3_Val == 1) {
+	if(L3_Val == 0 && L2_Val == 0) {
 		Line_Num = 80;  
 		sensor_state = L3;
 		current_state = TURN_LEFT;
-		corner_count ++;
-	} else if (L3_Val == 0 && L2_Val == 1) {
+		
+	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 1) {
+		Line_Num = 75;
+		sensor_state = L2;
+	} else if (L3_Val == 0 && L2_Val == 0 && L1_Val == 1) {
 		Line_Num = 70;
-		sensor_state = L2;  
-	} else if (L2_Val == 0 && L1_Val == 1 && M_Val == 0) {
+		sensor_state = L3_L2;
+	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 1) {
+		Line_Num = 65;
+		sensor_state = L2;
+	} else if (L3_Val == 1 && L2_Val == 0 && L1_Val == 0) {
+		Line_Num = 60;
+		sensor_state = L2_L1;	
+	} else if (L2_Val == 1 && L1_Val == 0 && M_Val == 1) {
 		Line_Num = 50;
 		sensor_state = L1;  
-	} else if (L1_Val == 1 && M_Val == 1 && R1_Val == 0) {
+	} else if (L1_Val == 0 && M_Val == 0 && R1_Val == 1) {
 		Line_Num = 30;
 		sensor_state = L1_M;   
-	}else if (L1_Val == 1 && M_Val == 1 && R1_Val == 0) {
+	}else if (L1_Val == 1 && M_Val == 0 && R1_Val == 1) {
 		Line_Num = 0;
 		sensor_state = M;   
 		
-	} else if (L1_Val == 0 && M_Val == 1 && R1_Val == 1) {
+	} else if (L1_Val == 1 && M_Val == 0 && R1_Val == 0) {
 		Line_Num = -30;
 		sensor_state = M_R1;   
-	} else if ( M_Val == 0 && R1_Val == 1&& R2_Val == 0) {
+	} else if ( M_Val == 1 && R1_Val == 0&& R2_Val == 1) {
 		Line_Num = -50;
-		sensor_state = R1;  
-	} else if (R2_Val == 1 && R3_Val == 0 ) {
+		sensor_state = R1; 
+	} else if (R1_Val == 0 && R2_Val == 0 && R3_Val == 1 ) {
+		Line_Num = -60;
+		sensor_state = R1_R2; 
+	} else if (R1_Val == 1 &&R2_Val == 0 && R3_Val == 1 ) {
+		Line_Num = -65;
+		sensor_state = R2;
+	} else if ( R3_Val == 1 && R2_Val == 0 && R3_Val == 0) {
 		Line_Num = -70;
-		sensor_state = R2;  
-	} else if( R3_Val == 1 && R2_Val == 1) {
-		Line_Num = -80;
+		sensor_state = R2_R3;  
+	}  
+	else if( R3_Val == 1 && R2_Val == 0) {
+		Line_Num = -75;
 		sensor_state = R3;  
 	}
 }

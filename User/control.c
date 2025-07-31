@@ -16,8 +16,9 @@ volatile uint8_t Line_flag = 0;
 // float g_fSpeedControlOut_Y,g_fSpeedControlOutOld_Y;//X方向速度环输出
 
 
+uint8_t corner_count = 0;
 
-uint16_t corner_count;
+
 
 ControlState current_state = GO_STRAIGHT;
 
@@ -38,23 +39,25 @@ void control(void){
 
 	switch(current_state){
 		case GO_STRAIGHT:
-					actual_speedX = Get_Encoder_countA;
-					actual_speedY = Get_Encoder_countB;
-					set_pid_target(&pid_speedX, 400+Line_Num);
-					set_pid_target(&pid_speedY, 400-Line_Num);
-					cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX*27);
-					cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY*27);
-					x_out_pwm = Limit_speed (&cont_val_X);
-					y_out_pwm = Limit_speed (&cont_val_Y);
+					// actual_speedX = Get_Encoder_countA;
+					// actual_speedY = Get_Encoder_countB;
+					// set_pid_target(&pid_speedX, 1600+Line_Num);
+					// set_pid_target(&pid_speedY, 1600-Line_Num);
+					// cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX*27);
+					// cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY*27);
+					// x_out_pwm = Limit_speed (&cont_val_X);
+					// y_out_pwm = Limit_speed (&cont_val_Y);
 
-					Get_Encoder_countA = 0;
-					Get_Encoder_countB = 0;
+					// Get_Encoder_countA = 0;
+					// Get_Encoder_countB = 0;
 
-				Motor_SetSpeed((int32_t)x_out_pwm, (int32_t)y_out_pwm);
+				// Motor_SetSpeed((int32_t)x_out_pwm, (int32_t)y_out_pwm);
+				Motor_SetSpeed(1600+Line_Num, 1600-Line_Num);
 			break;
 		case TURN_LEFT:
-			Motor_SetSpeed(1000, 2000);
-			delay_cycles(40000000);
+			corner_count ++;
+			Motor_SetSpeed(2300, 700);
+			delay_cycles(80000000);
 			current_state = GO_STRAIGHT;
 			break;
 
@@ -65,7 +68,7 @@ void control(void){
 
 		case TURN_RIGHT:
 			//右转
-			Motor_SetSpeed(500, 300);
+			Motor_SetSpeed(900, 2100);
 			break;
 		case STOP:
 			//停止

@@ -13,7 +13,7 @@ void TIMER_LOGIC_INST_IRQHandler(void){
         case DL_TIMERA_IIDX_ZERO:
             DL_TimerA_clearInterruptStatus(TIMER_LOGIC_INST, DL_TIMERA_INTERRUPT_ZERO_EVENT);
             // control();
-
+            
         default:
             break;
     }
