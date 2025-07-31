@@ -65,7 +65,8 @@ int main(void)
 
 
     while (1) {
-
+    control();
+    delay_cycles(800000);
 
         
         // send_string ("1");

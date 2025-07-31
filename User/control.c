@@ -54,7 +54,8 @@ void control(void){
 			break;
 		case TURN_LEFT:
 			Motor_SetSpeed(1000, 2000);
-
+			delay_cycles(40000000);
+			current_state = GO_STRAIGHT;
 			break;
 
 

@@ -172,9 +172,9 @@ float location_pid_realize(_pid* pid, float actual_val) {
   */
 float speedErrThres = 0.5f;
 float speedErrIntThres = 10.0;  // 这里的参数还是 上面位置环的，我没有修改，你要相应修改。
-float speedIntLmt = 10.0;// 这里的参数还是 上面位置环的，我没有修改，你要相应修改。
-float speedOutLmt = 20.0;// 这里的参数还是 上面位置环的，我没有修改，你要相应修改。
-float SpeedDeriFltAlpha = 0.1f;  // 微分项 低通滤波系数  （0 < alpha < 1） 值越小，滤波效果越强，但响应会变慢;值越大，滤波效果越弱，但对噪声更敏感
+float speedIntLmt = 100.0;// 这里的参数还是 上面位置环的，我没有修改，你要相应修改。
+float speedOutLmt = 2000.0;// 这里的参数还是 上面位置环的，我没有修改，你要相应修改。
+float SpeedDeriFltAlpha = 0.3f;  // 微分项 低通滤波系数  （0 < alpha < 1） 值越小，滤波效果越强，但响应会变慢;值越大，滤波效果越弱，但对噪声更敏感
 
 float speed_pid_realize(_pid* pid, float actual_val) {
   float derTmp = 0.0f;
@@ -189,8 +189,8 @@ float speed_pid_realize(_pid* pid, float actual_val) {
 //加入把数值为1的偏差都忽略，那么1s的时间小球位移个10个单位坐标都会当作没误差
 
   if ((pid->err >= -speedErrThres) && (pid->err <= speedErrThres)) {
-    pid->err = 0.0f;
-    pid->integral = 0.0f;
+    pid->err = 0.2f;
+    pid->integral = 0.2f;
   } else  if (pid->err > -speedErrIntThres && pid->err < speedErrIntThres) {
     pid->integral += pid->err * sampleTime;    // 误差累积
 
