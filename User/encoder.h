@@ -8,7 +8,7 @@ extern int Get_Encoder_countA,Get_Encoder_countB;
 extern volatile uint8_t tar_circle;
 
 // 定义长按和短按的时间阈值（单位：毫秒）
-#define LONG_PRESS_THRESHOLD_MS 1000
+#define LONG_PRESS_THRESHOLD_MS 5000
 #define SHORT_PRESS_THRESHOLD_MS 50
 
 // 定义按键状态
