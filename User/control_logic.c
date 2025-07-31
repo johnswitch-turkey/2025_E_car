@@ -4,6 +4,8 @@
 #include "ti_msp_dl_config.h"
 
 
+#include "encoder.h"
+
 
 void TIMER_LOGIC_INST_IRQHandler(void){
 
@@ -16,6 +18,24 @@ void TIMER_LOGIC_INST_IRQHandler(void){
             break;
     }
 
+    switch (DL_TimerG_getPendingInterrupt(TIMER_BUTTON_INST)) {
+        case DL_TIMERG_IIDX_ZERO:
+            DL_TimerA_clearInterruptStatus(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
+            if (buttonState == BUTTON_PRESSED) {
+            pressDurationMs++;
+
+            if (pressDurationMs >= LONG_PRESS_THRESHOLD_MS) {
+                // 长按处理
+                buttonState = BUTTON_LONG_PRESSED;
+                DL_Timer_stopCounter(TIMER_BUTTON_INST);
+                pressDurationMs = 0;
+                // 可以在这里调用长按处理函数
+            }
+
+        }
+    default:
+            break;
+    }
 }
 
 void NMI_Handler(void)

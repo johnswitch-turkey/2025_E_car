@@ -1,104 +1,80 @@
 #include "uart.h"
-
 #include "ti_msp_dl_config.h"
-
 
 // 定义接收状态枚举
 typedef enum {
-    WAIT_HEADER,   // 等待帧头 ':'
-    RECEIVE_X,     // 接收X坐标
-    RECEIVE_Y,     // 接收Y坐标
-    RECEIVE_NUM    // 接收数字编号
+    WAIT_COLON,    // 等待冒号':'
+    WAIT_NUMBER,   // 等待数字
+    WAIT_CR,       // 等待'\r'
+    WAIT_LF        // 等待'\n'
 } ReceiveState;
 
 // 全局变量
-static ReceiveState receive_state = WAIT_HEADER;
-static int16_t rx_x = 0;      // X坐标临时存储
-static int16_t rx_y = 0;      // Y坐标临时存储
-static uint8_t rx_num = 0;    // 数字编号临时存储
-static bool x_negative = false; // X是否为负数
-static bool y_negative = false; // Y是否为负数
-int16_t cy =0;
-int16_t cx =0;
+static ReceiveState receive_state = WAIT_COLON;
+static uint8_t received_number = 0;
 
-void UART_OPENCV_INST_IRQHandler(void)
+void UART_TJC_INST_IRQHandler(void)
 {
     uint8_t gData;
-    switch (DL_UART_Main_getPendingInterrupt(UART_OPENCV_INST)) {
+    switch (DL_UART_Main_getPendingInterrupt(UART_TJC_INST)) {
         case DL_UART_MAIN_IIDX_RX:
-            gData = DL_UART_Main_receiveData(UART_OPENCV_INST);
+            gData = DL_UART_Main_receiveData(UART_TJC_INST);
             
-            if(gData == 'S')  // 紧急停止命令
+            switch(receive_state)
             {
-
-            }
-            else
-            {
-                switch(receive_state)
-                {
-                    case WAIT_HEADER:
-                        if(gData == ':')  // 检测到帧头
-                        {
-                            receive_state = RECEIVE_X;
-                            rx_x = 0;
-                            x_negative = false;
-                        }
-                        break;
+                case WAIT_COLON:
+                    if(gData == ':')  // 检测到帧头冒号
+                    {
+                        receive_state = WAIT_NUMBER;
+                    }
+                    break;
+                    
+                case WAIT_NUMBER:
+                    if(gData >= '0' && gData <= '9')  // 接收数字
+                    {
+                        received_number = gData - '0';
+                        receive_state = WAIT_CR;
+                    }
+                    else
+                    {
+                        // 不是数字，重置状态
+                        receive_state = WAIT_COLON;
+                    }
+                    break;
+                    
+                case WAIT_CR:
+                    if(gData == '\r')  // 接收回车符
+                    {
+                        receive_state = WAIT_LF;
+                    }
+                    else
+                    {
+                        // 不符合协议，重置状态
+                        receive_state = WAIT_COLON;
+                    }
+                    break;
+                    
+                case WAIT_LF:
+                    if(gData == '\n')  // 接收换行符
+                    {
+                        // 完整接收到一个有效帧 ":1\r\n"
+                        // 在这里处理接收到的数字 received_number
                         
-                    case RECEIVE_X:
-                        if(gData == ',')  // X坐标接收完成
+                        // 示例：如果是1则执行某些操作
+                        if(received_number == 1)
                         {
-                            receive_state = RECEIVE_Y;
-                            rx_y = 0;
-                            y_negative = false;
+                            // 执行对应1的操作
                         }
-                        else if(gData == '-')  // 负号
-                        {
-                            x_negative = true;
-                        }
-                        else if(gData >= '0' && gData <= '9')  // 数字
-                        {
-                            rx_x = rx_x * 10 + (gData - '0');
-                        }
-                        break;
                         
-                    case RECEIVE_Y:
-                        if(gData == ',')  // Y坐标接收完成
-                        {
-                            receive_state = RECEIVE_NUM;
-                            rx_num = 0;
-                        }
-                        else if(gData == '-')  // 负号
-                        {
-                            y_negative = true;
-                        }
-                        else if(gData >= '0' && gData <= '9')  // 数字
-                        {
-                            rx_y = rx_y * 10 + (gData - '0');
-                        }
-                        break;
-                        
-                    case RECEIVE_NUM:
-                        if(gData == '#')  // 帧尾
-                        {
-                            // 处理符号
-                            if(x_negative) rx_x = -rx_x;
-                            if(y_negative) rx_y = -rx_y;
-                            
-                            // 存储到全局变量
-                            cx = rx_x;
-                            cy = rx_y;
-
-                            
-                            // 重置状态
-                            receive_state = WAIT_HEADER;
-                        }
-                        else if(gData >= '0' && gData <= '9')  // 数字编号
-                        {
-                            rx_num = gData - '0';
-                        }
-                        break;
-                }
+                        // 重置状态准备接收下一个帧
+                        receive_state = WAIT_COLON;
+                    }
+                    else
+                    {
+                        // 不符合协议，重置状态
+                        receive_state = WAIT_COLON;
+                    }
+                    break;
             }
             break;
             
