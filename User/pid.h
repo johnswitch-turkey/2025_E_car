@@ -1,7 +1,6 @@
 #ifndef __PID_H
 #define __PID_H
-#ifndef __BSP_PID_H
-#define	__BSP_PID_H
+
 
 #include "ti_msp_dl_config.h"
 

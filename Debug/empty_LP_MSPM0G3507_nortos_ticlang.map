@@ -1,7 +1,7 @@
 ******************************************************************************
             TI ARM Clang Linker PC v4.0.3                      
 ******************************************************************************
->> Linked Thu Jul 31 16:53:22 2025
+>> Linked Thu Jul 31 17:19:09 2025
 
 OUTPUT FILE NAME:   <empty_LP_MSPM0G3507_nortos_ticlang.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 000012dd
@@ -12,7 +12,7 @@ MEMORY CONFIGURATION
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
   FLASH                 00000000   00020000  00001920  0001e6e0  R  X
-  SRAM                  20200000   00008000  000003f0  00007c10  RW X
+  SRAM                  20200000   00008000  000003f8  00007c08  RW X
   BCR_CONFIG            41c00000   000000ff  00000000  000000ff  R   
   BSL_CONFIG            41c00100   00000080  00000000  00000080  R   
 
@@ -26,9 +26,9 @@ run origin  load origin   length   init length attrs members
   000000c0    000000c0    000017c0   000017c0    r-x .text
   00001880    00001880    00000070   00000070    r-- .rodata
   000018f0    000018f0    00000030   00000030    r-- .cinit
-20200000    20200000    000001f0   00000000    rw-
-  20200000    20200000    000001e0   00000000    rw- .bss
-  202001e0    202001e0    00000010   00000000    rw- .data
+20200000    20200000    000001f8   00000000    rw-
+  20200000    20200000    000001e8   00000000    rw- .bss
+  202001e8    202001e8    00000010   00000000    rw- .data
 20207e00    20207e00    00000200   00000000    rw-
   20207e00    20207e00    00000200   00000000    rw- .stack
 
@@ -189,38 +189,38 @@ section   page    origin      length       input sections
 
 .binit     0    00000000    00000000     
 
-.bss       0    20200000    000001e0     UNINITIALIZED
+.bss       0    20200000    000001e8     UNINITIALIZED
                   20200000    000000bc     (.common:gPWM_ENCODERBackup)
                   202000bc    000000bc     (.common:gTIMER_LOGICBackup)
-                  20200178    00000020     (.common:pid_speedX)
-                  20200198    00000020     (.common:pid_speedY)
-                  202001b8    00000004     (.common:Get_Encoder_countA)
-                  202001bc    00000004     (.common:Get_Encoder_countB)
-                  202001c0    00000004     (.common:Line_Num)
-                  202001c4    00000004     (.common:gpio_interrup1)
-                  202001c8    00000004     (.common:gpio_interrup2)
-                  202001cc    00000004     (.common:gpio_interrupt_key)
-                  202001d0    00000002     motor.o (.bss.Motor_SetSpeed.speed1_out)
-                  202001d2    00000002     motor.o (.bss.Motor_SetSpeed.speed2_out)
-                  202001d4    00000002     control.o (.bss.control.actual_speedX)
-                  202001d6    00000002     control.o (.bss.control.actual_speedY)
-                  202001d8    00000001     (.common:L1_Val)
-                  202001d9    00000001     (.common:L2_Val)
-                  202001da    00000001     (.common:L3_Val)
-                  202001db    00000001     (.common:M_Val)
-                  202001dc    00000001     (.common:R1_Val)
-                  202001dd    00000001     (.common:R2_Val)
-                  202001de    00000001     (.common:R3_Val)
-                  202001df    00000001     (.common:sensor_state)
+                  20200178    00000024     (.common:pid_speedX)
+                  2020019c    00000024     (.common:pid_speedY)
+                  202001c0    00000004     (.common:Get_Encoder_countA)
+                  202001c4    00000004     (.common:Get_Encoder_countB)
+                  202001c8    00000004     (.common:Line_Num)
+                  202001cc    00000004     (.common:gpio_interrup1)
+                  202001d0    00000004     (.common:gpio_interrup2)
+                  202001d4    00000004     (.common:gpio_interrupt_key)
+                  202001d8    00000002     motor.o (.bss.Motor_SetSpeed.speed1_out)
+                  202001da    00000002     motor.o (.bss.Motor_SetSpeed.speed2_out)
+                  202001dc    00000002     control.o (.bss.control.actual_speedX)
+                  202001de    00000002     control.o (.bss.control.actual_speedY)
+                  202001e0    00000001     (.common:L1_Val)
+                  202001e1    00000001     (.common:L2_Val)
+                  202001e2    00000001     (.common:L3_Val)
+                  202001e3    00000001     (.common:M_Val)
+                  202001e4    00000001     (.common:R1_Val)
+                  202001e5    00000001     (.common:R2_Val)
+                  202001e6    00000001     (.common:R3_Val)
+                  202001e7    00000001     (.common:sensor_state)
 
-.data      0    202001e0    00000010     UNINITIALIZED
-                  202001e0    00000004     encoder.o (.data.pressDurationMs)
-                  202001e4    00000004     control.o (.data.total_pulse_x)
-                  202001e8    00000004     control.o (.data.total_pulse_y)
-                  202001ec    00000001     encoder.o (.data.buttonState)
-                  202001ed    00000001     control.o (.data.current_state)
-                  202001ee    00000001     uart.o (.data.receive_state)
-                  202001ef    00000001     uart.o (.data.received_number)
+.data      0    202001e8    00000010     UNINITIALIZED
+                  202001e8    00000004     encoder.o (.data.pressDurationMs)
+                  202001ec    00000004     control.o (.data.total_pulse_x)
+                  202001f0    00000004     control.o (.data.total_pulse_y)
+                  202001f4    00000001     encoder.o (.data.buttonState)
+                  202001f5    00000001     control.o (.data.current_state)
+                  202001f6    00000001     uart.o (.data.receive_state)
+                  202001f7    00000001     uart.o (.data.received_number)
 
 .stack     0    20207e00    00000200     UNINITIALIZED
                   20207e00    00000004     libc.a : boot_cortex_m.c.obj (.stack)
@@ -250,9 +250,9 @@ MODULE SUMMARY
        control_logic.o                290    0         0      
        uart.o                         258    0         2      
        motor.o                        196    0         4      
-       pid.o                          34     0         64     
+       pid.o                          34     0         72     
     +--+------------------------------+------+---------+---------+
-       Total:                         2314   0         120    
+       Total:                         2314   0         128    
                                                               
     C:/ti/mspm0_sdk_2_05_01_00/source/ti/driverlib/lib/ticlang/m0p/mspm0g1x0x_g3x0x/driverlib.a
        dl_timer.o                     588    0         0      
@@ -287,14 +287,14 @@ MODULE SUMMARY
        Stack:                         0      0         512    
        Linker Generated:              0      43        0      
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   6066   344       1008   
+       Grand Total:                   6066   344       1016   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 0000190c records: 2, size/record: 8, table size: 16
-	.bss: load addr=000018fc, load size=00000008 bytes, run addr=20200000, run size=000001e0 bytes, compression=zero_init
-	.data: load addr=00001904, load size=00000007 bytes, run addr=202001e0, run size=00000010 bytes, compression=lzss
+	.bss: load addr=000018fc, load size=00000008 bytes, run addr=20200000, run size=000001e8 bytes, compression=zero_init
+	.data: load addr=00001904, load size=00000007 bytes, run addr=202001e8, run size=00000010 bytes, compression=lzss
 
 
 LINKER GENERATED HANDLER TABLE
@@ -330,25 +330,25 @@ address   name
 0000181f  Default_Handler                      
 00001823  GROUP0_IRQHandler                    
 0000027d  GROUP1_IRQHandler                    
-202001b8  Get_Encoder_countA                   
-202001bc  Get_Encoder_countB                   
+202001c0  Get_Encoder_countA                   
+202001c4  Get_Encoder_countB                   
 000007ed  Get_Light_TTL                        
 00001827  HOSTexit                             
 0000182b  HardFault_Handler                    
 0000182f  I2C0_IRQHandler                      
 00001833  I2C1_IRQHandler                      
-202001d8  L1_Val                               
-202001d9  L2_Val                               
-202001da  L3_Val                               
+202001e0  L1_Val                               
+202001e1  L2_Val                               
+202001e2  L3_Val                               
 00000435  Light_GoStraight_control             
-202001c0  Line_Num                             
-202001db  M_Val                                
+202001c8  Line_Num                             
+202001e3  M_Val                                
 00000c59  Motor_SetSpeed                       
 00001837  NMI_Handler                          
 0000183b  PendSV_Handler                       
-202001dc  R1_Val                               
-202001dd  R2_Val                               
-202001de  R3_Val                               
+202001e4  R1_Val                               
+202001e5  R2_Val                               
+202001e6  R3_Val                               
 0000183f  RTC_IRQHandler                       
 00001843  Reset_Handler                        
 00001847  SPI0_IRQHandler                      
@@ -414,23 +414,23 @@ UNDEFED   _system_post_cinit
 00001877  _system_pre_init                     
 00001801  abort                                
 ffffffff  binit                                
-202001ec  buttonState                          
+202001f4  buttonState                          
 000005ad  control                              
-202001ed  current_state                        
+202001f5  current_state                        
 20200000  gPWM_ENCODERBackup                   
 202000bc  gTIMER_LOGICBackup                   
-202001c4  gpio_interrup1                       
-202001c8  gpio_interrup2                       
-202001cc  gpio_interrupt_key                   
+202001cc  gpio_interrup1                       
+202001d0  gpio_interrup2                       
+202001d4  gpio_interrupt_key                   
 00000000  interruptVectors                     
 00000b91  main                                 
 20200178  pid_speedX                           
-20200198  pid_speedY                           
-202001e0  pressDurationMs                      
-202001df  sensor_state                         
+2020019c  pid_speedY                           
+202001e8  pressDurationMs                      
+202001e7  sensor_state                         
 00001305  set_p_i_d                            
-202001e4  total_pulse_x                        
-202001e8  total_pulse_y                        
+202001ec  total_pulse_x                        
+202001f0  total_pulse_y                        
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -530,26 +530,26 @@ address   name
 20200000  gPWM_ENCODERBackup                   
 202000bc  gTIMER_LOGICBackup                   
 20200178  pid_speedX                           
-20200198  pid_speedY                           
-202001b8  Get_Encoder_countA                   
-202001bc  Get_Encoder_countB                   
-202001c0  Line_Num                             
-202001c4  gpio_interrup1                       
-202001c8  gpio_interrup2                       
-202001cc  gpio_interrupt_key                   
-202001d8  L1_Val                               
-202001d9  L2_Val                               
-202001da  L3_Val                               
-202001db  M_Val                                
-202001dc  R1_Val                               
-202001dd  R2_Val                               
-202001de  R3_Val                               
-202001df  sensor_state                         
-202001e0  pressDurationMs                      
-202001e4  total_pulse_x                        
-202001e8  total_pulse_y                        
-202001ec  buttonState                          
-202001ed  current_state                        
+2020019c  pid_speedY                           
+202001c0  Get_Encoder_countA                   
+202001c4  Get_Encoder_countB                   
+202001c8  Line_Num                             
+202001cc  gpio_interrup1                       
+202001d0  gpio_interrup2                       
+202001d4  gpio_interrupt_key                   
+202001e0  L1_Val                               
+202001e1  L2_Val                               
+202001e2  L3_Val                               
+202001e3  M_Val                                
+202001e4  R1_Val                               
+202001e5  R2_Val                               
+202001e6  R3_Val                               
+202001e7  sensor_state                         
+202001e8  pressDurationMs                      
+202001ec  total_pulse_x                        
+202001f0  total_pulse_y                        
+202001f4  buttonState                          
+202001f5  current_state                        
 20207e00  __stack                              
 20208000  __STACK_END                          
 ffffffff  __TI_pprof_out_hndl                  
