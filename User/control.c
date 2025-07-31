@@ -39,8 +39,8 @@ void control(void){
 			
 				// if(g_nSpeedControlPeriod >= 4)
 				// {
-					actual_speedX = left_motor_encoder.temp_count;
-					actual_speedY = right_motor_encoder.temp_count;
+					actual_speedX = Get_Encoder_countA;
+					actual_speedY = Get_Encoder_countA;
 					set_pid_target(&pid_speedX, 1000+Line_Num);
 					set_pid_target(&pid_speedY, 1000-Line_Num);
 					cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX);
@@ -48,8 +48,8 @@ void control(void){
 					x_speed = Limit_speed (&cont_val_X);
 					y_speed = Limit_speed (&cont_val_Y);
 					g_nSpeedControlPeriod = 0;
-					left_motor_encoder.temp_count = 0;
-					right_motor_encoder.temp_count = 0;
+					Get_Encoder_countA = 0;
+					Get_Encoder_countA = 0;
 				// }
 				// SpeedControlOutput();
 				Motor_SetSpeed(x_speed, y_speed);

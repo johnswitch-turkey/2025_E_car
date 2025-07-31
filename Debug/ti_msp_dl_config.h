@@ -177,26 +177,32 @@ extern "C" {
 #define GPIO_GREY_SENSOR_R3_PORT                                         (GPIOB)
 #define GPIO_GREY_SENSOR_R3_PIN                                 (DL_GPIO_PIN_14)
 #define GPIO_GREY_SENSOR_R3_IOMUX                                (IOMUX_PINCM31)
-/* Port definition for Pin Group GPIO_ENCODER */
-#define GPIO_ENCODER_PORT                                                (GPIOB)
+/* Port definition for Pin Group ENCODERA */
+#define ENCODERA_PORT                                                    (GPIOB)
 
-/* Defines for PIN_LA: GPIOB.18 with pinCMx 44 on package pin 15 */
-// pins affected by this interrupt request:["PIN_LA","PIN_RA"]
-#define GPIO_ENCODER_INT_IRQN                                   (GPIOB_INT_IRQn)
-#define GPIO_ENCODER_INT_IIDX                   (DL_INTERRUPT_GROUP1_IIDX_GPIOB)
-#define GPIO_ENCODER_PIN_LA_IIDX                            (DL_GPIO_IIDX_DIO18)
-#define GPIO_ENCODER_PIN_LA_PIN                                 (DL_GPIO_PIN_18)
-#define GPIO_ENCODER_PIN_LA_IOMUX                                (IOMUX_PINCM44)
-/* Defines for PIN_LB: GPIOB.17 with pinCMx 43 on package pin 14 */
-#define GPIO_ENCODER_PIN_LB_PIN                                 (DL_GPIO_PIN_17)
-#define GPIO_ENCODER_PIN_LB_IOMUX                                (IOMUX_PINCM43)
-/* Defines for PIN_RA: GPIOB.15 with pinCMx 32 on package pin 3 */
-#define GPIO_ENCODER_PIN_RA_IIDX                            (DL_GPIO_IIDX_DIO15)
-#define GPIO_ENCODER_PIN_RA_PIN                                 (DL_GPIO_PIN_15)
-#define GPIO_ENCODER_PIN_RA_IOMUX                                (IOMUX_PINCM32)
-/* Defines for PIN_RB: GPIOB.16 with pinCMx 33 on package pin 4 */
-#define GPIO_ENCODER_PIN_RB_PIN                                 (DL_GPIO_PIN_16)
-#define GPIO_ENCODER_PIN_RB_IOMUX                                (IOMUX_PINCM33)
+/* Defines for E1A: GPIOB.18 with pinCMx 44 on package pin 15 */
+// groups represented: ["ENCODERB","ENCODERA"]
+// pins affected: ["E2A","E2B","E1A","E1B"]
+#define GPIO_MULTIPLE_GPIOB_INT_IRQN                            (GPIOB_INT_IRQn)
+#define GPIO_MULTIPLE_GPIOB_INT_IIDX            (DL_INTERRUPT_GROUP1_IIDX_GPIOB)
+#define ENCODERA_E1A_IIDX                                   (DL_GPIO_IIDX_DIO18)
+#define ENCODERA_E1A_PIN                                        (DL_GPIO_PIN_18)
+#define ENCODERA_E1A_IOMUX                                       (IOMUX_PINCM44)
+/* Defines for E1B: GPIOB.17 with pinCMx 43 on package pin 14 */
+#define ENCODERA_E1B_IIDX                                   (DL_GPIO_IIDX_DIO17)
+#define ENCODERA_E1B_PIN                                        (DL_GPIO_PIN_17)
+#define ENCODERA_E1B_IOMUX                                       (IOMUX_PINCM43)
+/* Port definition for Pin Group ENCODERB */
+#define ENCODERB_PORT                                                    (GPIOB)
+
+/* Defines for E2A: GPIOB.15 with pinCMx 32 on package pin 3 */
+#define ENCODERB_E2A_IIDX                                   (DL_GPIO_IIDX_DIO15)
+#define ENCODERB_E2A_PIN                                        (DL_GPIO_PIN_15)
+#define ENCODERB_E2A_IOMUX                                       (IOMUX_PINCM32)
+/* Defines for E2B: GPIOB.16 with pinCMx 33 on package pin 4 */
+#define ENCODERB_E2B_IIDX                                   (DL_GPIO_IIDX_DIO16)
+#define ENCODERB_E2B_PIN                                        (DL_GPIO_PIN_16)
+#define ENCODERB_E2B_IOMUX                                       (IOMUX_PINCM33)
 
 /* clang-format on */
 
