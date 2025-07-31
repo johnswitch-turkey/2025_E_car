@@ -4,18 +4,18 @@
 #include "ti_msp_dl_config.h"
 
 /*******************电机相关************************/
-/* 编码器物理分辨率 */
-#define ENCODER_RESOLUTION                     11
+/* 编码器线数 */
+#define ENCODER_RESOLUTION                     13
 
 /* 经过倍频之后的总分辨率 */
 #define ENCODER_TOTAL_RESOLUTION             (ENCODER_RESOLUTION * 4)  /* 4倍频后的总分辨率 */
 
 /* 减速电机减速比 */
-#define REDUCTION_RATIO  56
+#define REDUCTION_RATIO  28
 
 /*在sysTick里调用PID计算的周期，以毫秒为单位*/
-#define SPEED_PID_PERIOD  20    //这个要看定时器7的中断周期
-#define TARGET_SPEED_MAX  120  //// 60rpm可以3s走完60cm
+#define SPEED_PID_PERIOD  10    //这个要看定时器7的中断周期
+#define TARGET_SPEED_MAX  2000  //// 60rpm可以3s走完60cm
 
 
 /*******************驱动相关************************/

@@ -6,8 +6,8 @@
 
 
 static volatile uint32_t gpio_interrup;
-static ENCODER_RES left_motor_encoder;
-static ENCODER_RES right_motor_encoder;
+ENCODER_RES left_motor_encoder;
+ENCODER_RES right_motor_encoder;
 
 int32_t x_pulse = 0;
 int32_t y_pulse = 0;
@@ -40,12 +40,12 @@ void Exti_IRQHandler(void)
 	{
 		if(!DL_GPIO_readPins(GPIO_ENCODER_PORT,GPIO_ENCODER_PIN_RB_PIN))
 		{
-			y_pulse ++;
+			y_pulse --;
 			right_motor_encoder.temp_count--;
 		}
 		else
 		{
-			y_pulse--;
+			y_pulse++;
 			right_motor_encoder.temp_count++;
 		}
 	}

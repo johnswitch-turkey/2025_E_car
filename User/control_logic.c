@@ -3,7 +3,7 @@
 //#include "uart.h"
 #include "ti_msp_dl_config.h"
 
-volatile uint8_t j;
+
 
 void TIMER_LOGIC_INST_IRQHandler(void){
 
@@ -11,11 +11,7 @@ void TIMER_LOGIC_INST_IRQHandler(void){
         case DL_TIMERA_IIDX_ZERO:
             DL_TimerA_clearInterruptStatus(TIMER_LOGIC_INST, DL_TIMERA_INTERRUPT_ZERO_EVENT);
             // control();
-            // j ++;
-            // if(j == 100){
-            //     j = 0;
-            //     DL_GPIO_togglePins(GPIO_LEDS_PORT,GPIO_LEDS_PIN_LED_1_PIN);
-            // }
+
         default:
             break;
     }

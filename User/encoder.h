@@ -17,8 +17,8 @@ typedef struct {
 } ENCODER_RES;
 
 
-static ENCODER_RES left_motor_encoder;
-static ENCODER_RES right_motor_encoder;
+extern ENCODER_RES left_motor_encoder;
+extern ENCODER_RES right_motor_encoder;
 
 void encoder_init(void);
 int get_left_encoder(void);

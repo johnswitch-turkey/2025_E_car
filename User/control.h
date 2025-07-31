@@ -16,7 +16,7 @@ typedef enum {
 	STOP
 } ControlState;
 
-void AngleControlOutput(void);
+void SpeedControlOutput(void);
 
 void control(void);
 
