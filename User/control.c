@@ -15,7 +15,7 @@ volatile uint8_t Line_flag = 0;
 float g_fSpeedControlOut_X,g_fSpeedControlOutOld_X;//X方向速度环输出
 float g_fSpeedControlOut_Y,g_fSpeedControlOutOld_Y;//X方向速度环输出
 
-int g_nSpeedControlPeriod;//速度环控制周期计算量
+
 
 uint16_t corner_count;
 
@@ -23,7 +23,8 @@ ControlState current_state = GO_STRAIGHT;
 
 
 
-float x_speed, y_speed;
+float x_out_pwm = 0.0;
+float y_out_pwm = 0.0;
 
 void control(void){
 
@@ -35,24 +36,20 @@ void control(void){
 
 	switch(current_state){
 		case GO_STRAIGHT:
-			// g_nSpeedControlPeriod++;
-			
-				// if(g_nSpeedControlPeriod >= 4)
-				// {
+
 					actual_speedX = Get_Encoder_countA;
-					actual_speedY = Get_Encoder_countA;
-					set_pid_target(&pid_speedX, 1000+Line_Num);
-					set_pid_target(&pid_speedY, 1000-Line_Num);
-					cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX);
-					cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY);
-					x_speed = Limit_speed (&cont_val_X);
-					y_speed = Limit_speed (&cont_val_Y);
-					g_nSpeedControlPeriod = 0;
+					actual_speedY = Get_Encoder_countB;
+					// set_pid_target(&pid_speedX, 400+Line_Num);
+					// set_pid_target(&pid_speedY, 400-Line_Num);
+					// cont_val_X = speed_pid_realize(&pid_speedX, actual_speedX);
+					// cont_val_Y = speed_pid_realize(&pid_speedY, actual_speedY);
+					// x_out_pwm = Limit_speed (&cont_val_X);
+					// y_out_pwm = Limit_speed (&cont_val_Y);
+
 					Get_Encoder_countA = 0;
-					Get_Encoder_countA = 0;
-				// }
-				// SpeedControlOutput();
-				Motor_SetSpeed(x_speed, y_speed);
+					Get_Encoder_countB = 0;
+
+				// Motor_SetSpeed(x_out_pwm, y_out_pwm);
 			break;
 		case TURN_LEFT:
 			switch (sensor_state){

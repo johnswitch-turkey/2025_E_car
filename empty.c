@@ -56,16 +56,14 @@ int main(void)
     DL_GPIO_clearPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
     DL_GPIO_setPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
     DL_GPIO_clearPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
-    Motor_SetSpeed(400, 400);
-    set_p_i_d(&pid_speedX, 1.0, 0.0, 0.0);
-    set_p_i_d(&pid_speedY, 1.0, 0.0, 0.0);
+    Motor_SetSpeed(900, 900);
+    set_p_i_d(&pid_speedX, 1.0, 0.3, 0.0);
+    set_p_i_d(&pid_speedY, 1.0, 0.3, 0.0);
 
 
 
     while (1) {
-        // DL_GPIO_togglePins(GPIO_LEDS_PORT,GPIO_LEDS_PIN_LED_1_PIN);
-        // delay_cycles(40000000);
-        // DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_PIN_LED_1_PIN);
+        
         // delay_cycles(40000000);
     }
 }
