@@ -18,7 +18,7 @@ void Light_GoStraight_control(void)   //灰度巡线直行, 需要有个判断�
 {
 	  Get_Light_TTL();  
 	  
-	if(L3_Val == 0 && L2_Val == 0) {
+	if(L3_Val == 0 && L2_Val == 0 && R3_Val == 1) {
 		Line_Num = 75;  
 		sensor_state = L3;
 		current_state = TURN_LEFT;
@@ -60,7 +60,7 @@ void Light_GoStraight_control(void)   //灰度巡线直行, 需要有个判断�
 	// 	Line_Num = -70;
 	// 	sensor_state = R2_R3;  
 	// }  
-	else if( R3_Val == 0 && R2_Val == 0) {
+	else if( R3_Val == 0 && R2_Val == 0 && L3_Val == 1) {
 		Line_Num = -75;
 		sensor_state = R3;  
 		current_state = TURN_RIGHT;

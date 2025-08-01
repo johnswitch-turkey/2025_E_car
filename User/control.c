@@ -15,12 +15,13 @@ volatile uint8_t Line_flag = 0;
 // float g_fSpeedControlOut_X,g_fSpeedControlOutOld_X;//X方向速度环输出
 // float g_fSpeedControlOut_Y,g_fSpeedControlOutOld_Y;//X方向速度环输出
 
+uint16_t wait_time;
 
 volatile uint8_t corner_count = 0; // 记录走过角落数
 
 volatile uint8_t cur_circle = 0; // 记录走过圈数
 
-ControlState current_state = STOP;
+ControlState current_state = GO_STRAIGHT;
 
 uint32_t total_pulse_x = 0;
 uint32_t total_pulse_y = 0;
@@ -58,24 +59,30 @@ void control(void){
 				Motor_SetSpeed(1600+Line_Num, 1600-Line_Num);
 			break;
 		case TURN_LEFT:
+			Motor_SetSpeed(2300, 700);
 			corner_count ++;
 			if (corner_count == 4){
 				corner_count = 0;
 				cur_circle ++;
 			}
-			Motor_SetSpeed(2300, 700);
-			delay_cycles(80000000);
-			current_state = GO_STRAIGHT;
+			current_state = WAIT_TURN;
 			break;
 
-
-			
-
-			
+		case WAIT_TURN:
+			wait_time++;
+			if (wait_time == 100) {
+				current_state = GO_STRAIGHT;
+			}
 
 		case TURN_RIGHT:
+			corner_count ++;
+			if (corner_count == 4){
+				corner_count = 0;
+				cur_circle ++;
+			}
 			//右转
 			Motor_SetSpeed(900, 2100);
+			current_state = WAIT_TURN;
 			break;
 		case STOP:
 			//停止

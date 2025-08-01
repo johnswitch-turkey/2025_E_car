@@ -1,8 +1,5 @@
 #include "uart.h"
 #include "ti_msp_dl_config.h"
-
-
-
 #include <stdio.h>
 #include <string.h>
 
@@ -130,11 +127,17 @@ int puts(const char *_ptr)
     return count;
 }
 
-// 简化的字符串发送函数
-void send_string(const char* str)
-{
-    // 直接调用fputs函数发送字符串
+// 发送字符串或缓冲区的通用函数（改进版）
+void send_string(const void* buffer) {
+    const char* str = (const char*)buffer;
     fputs(str, stdout);
 }
+
+// // 简化的字符串发送函数
+// void send_string(const char* str)
+// {
+//     // 直接调用fputs函数发送字符串
+//     fputs(str, stdout);
+// }
 
 

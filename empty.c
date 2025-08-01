@@ -38,18 +38,24 @@
 #include "pid.h"
 #include "uart.h"
 
+#include "string.h"
+
+uint8_t oled_buffer[32];
+
 int main(void)
 {
     SYSCFG_DL_init();
 
     NVIC_ClearPendingIRQ(UART_TJC_INST_INT_IRQN);
     NVIC_EnableIRQ(UART_TJC_INST_INT_IRQN);
+
     NVIC_ClearPendingIRQ(TIMER_LOGIC_INST_INT_IRQN);
     NVIC_EnableIRQ(TIMER_LOGIC_INST_INT_IRQN);
     DL_TimerA_enableInterrupt(TIMER_LOGIC_INST, DL_TIMERA_INTERRUPT_ZERO_EVENT);
-    NVIC_ClearPendingIRQ(TIMER_BUTTON_INST_INT_IRQN);
-    NVIC_EnableIRQ(TIMER_BUTTON_INST_INT_IRQN);
-    DL_TimerG_enableInterrupt(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
+    
+    // NVIC_ClearPendingIRQ(TIMER_BUTTON_INST_INT_IRQN);
+    // NVIC_EnableIRQ(TIMER_BUTTON_INST_INT_IRQN);
+    // DL_TimerG_enableInterrupt(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
 
     NVIC_ClearPendingIRQ(GPIO_MULTIPLE_GPIOB_INT_IRQN);
     NVIC_EnableIRQ(GPIO_MULTIPLE_GPIOB_INT_IRQN);
@@ -58,6 +64,9 @@ int main(void)
     DL_GPIO_setPins(GPIO_DIRS_DIR_L2_PORT, GPIO_DIRS_DIR_L2_PIN);
     DL_GPIO_clearPins(GPIO_DIRS_DIR_R1_PORT, GPIO_DIRS_DIR_R1_PIN);
     DL_GPIO_setPins(GPIO_DIRS_PIN_R2_PORT, GPIO_DIRS_PIN_R2_PIN);
+    DL_GPIO_setPins(LEDS_LED_1_PORT,LEDS_LED_1_PIN);
+    DL_GPIO_setPins(LEDS_LED_2_PORT,LEDS_LED_2_PIN);
+    DL_GPIO_setPins(LEDS_LED_3_PORT,LEDS_LED_3_PIN);
     Motor_SetSpeed(1600, 1600);
     // set_p_i_d(&pid_speedX, 1.0, 0.3, 0.0);
     // set_p_i_d(&pid_speedY, 1.0, 0.3, 0.0);
@@ -65,11 +74,11 @@ int main(void)
 
 
     while (1) {
-    control();
-    delay_cycles(800000);
-
-        
-        // send_string ("1");
+    // control();
+    // delay_cycles(800000);
+        // sprintf((char *)oled_buffer, "%-6.1f", pitch);
+        // sprintf((char *)oled_buffer, "%d",tar_circle);
+        // send_string (oled_buffer);
         // delay_cycles(40000000);
     }
 }

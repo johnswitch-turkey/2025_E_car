@@ -12,6 +12,7 @@ extern long long x;
 typedef enum {
 	GO_STRAIGHT,
 	TURN_LEFT,
+	WAIT_TURN,
 	TURN_RIGHT,
 	STOP
 } ControlState;

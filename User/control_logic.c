@@ -11,35 +11,35 @@ void TIMER_LOGIC_INST_IRQHandler(void){
     switch (DL_TimerA_getPendingInterrupt(TIMER_LOGIC_INST)) {
         case DL_TIMERA_IIDX_ZERO:
             DL_TimerA_clearInterruptStatus(TIMER_LOGIC_INST, DL_TIMERA_INTERRUPT_ZERO_EVENT);
-            // control();
+            control();
             
         default:
             break;
     }
 }
 
-void TIMER_BUTTON_INST_IRQHandler(void){
-    switch (DL_TimerG_getPendingInterrupt(TIMER_BUTTON_INST)) {
-        case DL_TIMERG_IIDX_ZERO:
-            DL_TimerA_clearInterruptStatus(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
-            if (buttonState == BUTTON_PRESSED) {
-            pressDurationMs++;
+// void TIMER_BUTTON_INST_IRQHandler(void){
+//     switch (DL_TimerG_getPendingInterrupt(TIMER_BUTTON_INST)) {
+//         case DL_TIMERG_IIDX_ZERO:
+//             DL_TimerA_clearInterruptStatus(TIMER_BUTTON_INST, DL_TIMERG_INTERRUPT_ZERO_EVENT);
+//             if (buttonState == BUTTON_PRESSED) {
+//             pressDurationMs++;
 
-            if (pressDurationMs >= LONG_PRESS_THRESHOLD_MS) {
-                // 长按处理
-                buttonState = BUTTON_LONG_PRESSED;
-                DL_Timer_stopCounter(TIMER_BUTTON_INST);
-                pressDurationMs = 0;
-                // 可以在这里调用长按处理函数
-                current_state = GO_STRAIGHT;
-            }
+//             if (pressDurationMs >= LONG_PRESS_THRESHOLD_MS) {
+//                 // 长按处理
+//                 buttonState = BUTTON_LONG_PRESSED;
+//                 DL_Timer_stopCounter(TIMER_BUTTON_INST);
+//                 pressDurationMs = 0;
+//                 // 可以在这里调用长按处理函数
+//                 current_state = GO_STRAIGHT;
+//             }
 
-        }
-    default:
-            break;
-    }
+//         }
+//     default:
+//             break;
+//     }
 
-}
+// }
 
 void NMI_Handler(void)
 {

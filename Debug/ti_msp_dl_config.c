@@ -136,8 +136,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initPeripheralInputFunction(
         GPIO_UART_CV_IOMUX_RX, GPIO_UART_CV_IOMUX_RX_FUNC);
 
-    DL_GPIO_initDigitalOutput(GPIO_LEDS_PIN_LED_1_IOMUX);
-
     DL_GPIO_initDigitalOutput(GPIO_DIRS_DIR_L1_IOMUX);
 
     DL_GPIO_initDigitalOutput(GPIO_DIRS_DIR_L2_IOMUX);
@@ -145,6 +143,12 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initDigitalOutput(GPIO_DIRS_DIR_R1_IOMUX);
 
     DL_GPIO_initDigitalOutput(GPIO_DIRS_PIN_R2_IOMUX);
+
+    DL_GPIO_initDigitalOutput(LEDS_LED_1_IOMUX);
+
+    DL_GPIO_initDigitalOutput(LEDS_LED_2_IOMUX);
+
+    DL_GPIO_initDigitalOutput(LEDS_LED_3_IOMUX);
 
     DL_GPIO_initDigitalInputFeatures(GPIO_GREY_SENSOR_L3_IOMUX,
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
@@ -206,24 +210,28 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 
     DL_GPIO_clearPins(GPIOA, GPIO_DIRS_DIR_R1_PIN |
 		GPIO_DIRS_PIN_R2_PIN |
+		LEDS_LED_1_PIN |
 		GPIO_GREY_SENSOR_R2_PIN);
     DL_GPIO_enableOutput(GPIOA, GPIO_DIRS_DIR_R1_PIN |
 		GPIO_DIRS_PIN_R2_PIN |
+		LEDS_LED_1_PIN |
 		GPIO_GREY_SENSOR_R2_PIN);
-    DL_GPIO_clearPins(GPIOB, GPIO_LEDS_PIN_LED_1_PIN |
-		GPIO_DIRS_DIR_L1_PIN |
-		GPIO_DIRS_DIR_L2_PIN);
-    DL_GPIO_enableOutput(GPIOB, GPIO_LEDS_PIN_LED_1_PIN |
-		GPIO_DIRS_DIR_L1_PIN |
-		GPIO_DIRS_DIR_L2_PIN);
+    DL_GPIO_clearPins(GPIOB, GPIO_DIRS_DIR_L1_PIN |
+		GPIO_DIRS_DIR_L2_PIN |
+		LEDS_LED_2_PIN |
+		LEDS_LED_3_PIN);
+    DL_GPIO_enableOutput(GPIOB, GPIO_DIRS_DIR_L1_PIN |
+		GPIO_DIRS_DIR_L2_PIN |
+		LEDS_LED_2_PIN |
+		LEDS_LED_3_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOB, DL_GPIO_PIN_15_EDGE_RISE |
-		DL_GPIO_PIN_14_EDGE_RISE_FALL);
+		DL_GPIO_PIN_14_EDGE_FALL);
     DL_GPIO_setUpperPinsPolarity(GPIOB, DL_GPIO_PIN_18_EDGE_RISE |
 		DL_GPIO_PIN_17_EDGE_RISE |
 		DL_GPIO_PIN_16_EDGE_RISE |
-		DL_GPIO_PIN_19_EDGE_RISE_FALL |
-		DL_GPIO_PIN_20_EDGE_RISE_FALL |
-		DL_GPIO_PIN_21_EDGE_RISE_FALL);
+		DL_GPIO_PIN_19_EDGE_FALL |
+		DL_GPIO_PIN_20_EDGE_FALL |
+		DL_GPIO_PIN_21_EDGE_FALL);
     DL_GPIO_clearInterruptStatus(GPIOB, ENCODERA_E1A_PIN |
 		ENCODERA_E1B_PIN |
 		ENCODERB_E2A_PIN |
@@ -345,7 +353,7 @@ static const DL_TimerA_ClockConfig gTIMER_LOGICClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_LOGIC_INST_LOAD_VALUE = (20ms * 1000000 Hz) - 1
+ * TIMER_LOGIC_INST_LOAD_VALUE = (10ms * 1000000 Hz) - 1
  */
 static const DL_TimerA_TimerConfig gTIMER_LOGICTimerConfig = {
     .period     = TIMER_LOGIC_INST_LOAD_VALUE,
@@ -361,7 +369,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_LOGIC_init(void) {
     DL_TimerA_initTimerMode(TIMER_LOGIC_INST,
         (DL_TimerA_TimerConfig *) &gTIMER_LOGICTimerConfig);
     DL_TimerA_enableInterrupt(TIMER_LOGIC_INST , DL_TIMERA_INTERRUPT_ZERO_EVENT);
-	NVIC_SetPriority(TIMER_LOGIC_INST_INT_IRQN, 0);
+	NVIC_SetPriority(TIMER_LOGIC_INST_INT_IRQN, 2);
     DL_TimerA_enableClock(TIMER_LOGIC_INST);
 
 

@@ -102,7 +102,7 @@ extern "C" {
 #define TIMER_LOGIC_INST                                                 (TIMA1)
 #define TIMER_LOGIC_INST_IRQHandler                             TIMA1_IRQHandler
 #define TIMER_LOGIC_INST_INT_IRQN                               (TIMA1_INT_IRQn)
-#define TIMER_LOGIC_INST_LOAD_VALUE                                     (19999U)
+#define TIMER_LOGIC_INST_LOAD_VALUE                                      (9999U)
 /* Defines for TIMER_BUTTON */
 #define TIMER_BUTTON_INST                                                (TIMG0)
 #define TIMER_BUTTON_INST_IRQHandler                            TIMG0_IRQHandler
@@ -164,12 +164,6 @@ extern "C" {
 
 
 
-/* Port definition for Pin Group GPIO_LEDS */
-#define GPIO_LEDS_PORT                                                   (GPIOB)
-
-/* Defines for PIN_LED_1: GPIOB.22 with pinCMx 50 on package pin 21 */
-#define GPIO_LEDS_PIN_LED_1_PIN                                 (DL_GPIO_PIN_22)
-#define GPIO_LEDS_PIN_LED_1_IOMUX                                (IOMUX_PINCM50)
 /* Defines for DIR_L1: GPIOB.13 with pinCMx 30 on package pin 1 */
 #define GPIO_DIRS_DIR_L1_PORT                                            (GPIOB)
 #define GPIO_DIRS_DIR_L1_PIN                                    (DL_GPIO_PIN_13)
@@ -186,6 +180,18 @@ extern "C" {
 #define GPIO_DIRS_PIN_R2_PORT                                            (GPIOA)
 #define GPIO_DIRS_PIN_R2_PIN                                    (DL_GPIO_PIN_12)
 #define GPIO_DIRS_PIN_R2_IOMUX                                   (IOMUX_PINCM34)
+/* Defines for LED_1: GPIOA.24 with pinCMx 54 on package pin 25 */
+#define LEDS_LED_1_PORT                                                  (GPIOA)
+#define LEDS_LED_1_PIN                                          (DL_GPIO_PIN_24)
+#define LEDS_LED_1_IOMUX                                         (IOMUX_PINCM54)
+/* Defines for LED_2: GPIOB.25 with pinCMx 56 on package pin 27 */
+#define LEDS_LED_2_PORT                                                  (GPIOB)
+#define LEDS_LED_2_PIN                                          (DL_GPIO_PIN_25)
+#define LEDS_LED_2_IOMUX                                         (IOMUX_PINCM56)
+/* Defines for LED_3: GPIOB.26 with pinCMx 57 on package pin 28 */
+#define LEDS_LED_3_PORT                                                  (GPIOB)
+#define LEDS_LED_3_PIN                                          (DL_GPIO_PIN_26)
+#define LEDS_LED_3_IOMUX                                         (IOMUX_PINCM57)
 /* Defines for L3: GPIOA.23 with pinCMx 53 on package pin 24 */
 #define GPIO_GREY_SENSOR_L3_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_L3_PIN                                 (DL_GPIO_PIN_23)
@@ -206,10 +212,10 @@ extern "C" {
 #define GPIO_GREY_SENSOR_R1_PORT                                         (GPIOB)
 #define GPIO_GREY_SENSOR_R1_PIN                                 (DL_GPIO_PIN_24)
 #define GPIO_GREY_SENSOR_R1_IOMUX                                (IOMUX_PINCM52)
-/* Defines for R2: GPIOA.24 with pinCMx 54 on package pin 25 */
+/* Defines for R2: GPIOA.25 with pinCMx 55 on package pin 26 */
 #define GPIO_GREY_SENSOR_R2_PORT                                         (GPIOA)
-#define GPIO_GREY_SENSOR_R2_PIN                                 (DL_GPIO_PIN_24)
-#define GPIO_GREY_SENSOR_R2_IOMUX                                (IOMUX_PINCM54)
+#define GPIO_GREY_SENSOR_R2_PIN                                 (DL_GPIO_PIN_25)
+#define GPIO_GREY_SENSOR_R2_IOMUX                                (IOMUX_PINCM55)
 /* Defines for R3: GPIOA.27 with pinCMx 60 on package pin 31 */
 #define GPIO_GREY_SENSOR_R3_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_R3_PIN                                 (DL_GPIO_PIN_27)
