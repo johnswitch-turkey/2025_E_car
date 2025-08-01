@@ -42,6 +42,8 @@
 
 uint8_t oled_buffer[32];
 
+
+
 int main(void)
 {
     SYSCFG_DL_init();
@@ -67,15 +69,18 @@ int main(void)
     DL_GPIO_setPins(LEDS_LED_1_PORT,LEDS_LED_1_PIN);
     DL_GPIO_setPins(LEDS_LED_2_PORT,LEDS_LED_2_PIN);
     DL_GPIO_setPins(LEDS_LED_3_PORT,LEDS_LED_3_PIN);
-    Motor_SetSpeed(1600, 1600);
+    Motor_SetSpeed(800, 800);
     // set_p_i_d(&pid_speedX, 1.0, 0.3, 0.0);
     // set_p_i_d(&pid_speedY, 1.0, 0.3, 0.0);
 
 
 
     while (1) {
-    // control();
-    // delay_cycles(800000);
+
+        if (start_flag == 1){
+            control();
+            delay_cycles(800000);
+        }
         // sprintf((char *)oled_buffer, "%-6.1f", pitch);
         // sprintf((char *)oled_buffer, "%d",tar_circle);
         // send_string (oled_buffer);

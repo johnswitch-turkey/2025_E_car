@@ -196,10 +196,6 @@ extern "C" {
 #define GPIO_GREY_SENSOR_L3_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_L3_PIN                                 (DL_GPIO_PIN_23)
 #define GPIO_GREY_SENSOR_L3_IOMUX                                (IOMUX_PINCM53)
-/* Defines for L2: GPIOA.21 with pinCMx 46 on package pin 17 */
-#define GPIO_GREY_SENSOR_L2_PORT                                         (GPIOA)
-#define GPIO_GREY_SENSOR_L2_PIN                                 (DL_GPIO_PIN_21)
-#define GPIO_GREY_SENSOR_L2_IOMUX                                (IOMUX_PINCM46)
 /* Defines for L1: GPIOA.15 with pinCMx 37 on package pin 8 */
 #define GPIO_GREY_SENSOR_L1_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_L1_PIN                                 (DL_GPIO_PIN_15)
@@ -220,6 +216,10 @@ extern "C" {
 #define GPIO_GREY_SENSOR_R3_PORT                                         (GPIOA)
 #define GPIO_GREY_SENSOR_R3_PIN                                 (DL_GPIO_PIN_27)
 #define GPIO_GREY_SENSOR_R3_IOMUX                                (IOMUX_PINCM60)
+/* Defines for L2: GPIOA.21 with pinCMx 46 on package pin 17 */
+#define GPIO_GREY_SENSOR_L2_PORT                                         (GPIOA)
+#define GPIO_GREY_SENSOR_L2_PIN                                 (DL_GPIO_PIN_21)
+#define GPIO_GREY_SENSOR_L2_IOMUX                                (IOMUX_PINCM46)
 /* Port definition for Pin Group ENCODERA */
 #define ENCODERA_PORT                                                    (GPIOB)
 

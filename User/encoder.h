@@ -18,7 +18,7 @@ typedef enum {
     BUTTON_LONG_PRESSED
 } ButtonState;
 
-
+extern volatile uint8_t start_flag;
 extern volatile ButtonState buttonState;
 extern volatile uint32_t pressDurationMs;
 

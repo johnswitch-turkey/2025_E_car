@@ -13,7 +13,7 @@ volatile ButtonState buttonState = BUTTON_RELEASED;
 volatile uint32_t pressDurationMs = 0;
 
 volatile uint8_t tar_circle = 0;
-
+volatile uint8_t start_flag = 0;
 
 uint32_t gpio_interrup1,gpio_interrup2;
 uint32_t gpio_interrupt_key;
@@ -140,6 +140,8 @@ void GROUP1_IRQHandler(void)
 	if ((gpio_interrupt_key & KEYS_KEY2_PIN)==KEYS_KEY2_PIN)
 	{
 		current_state = GO_STRAIGHT;
+		start_flag = 1;
+		
 	}
 
 	DL_GPIO_clearInterruptStatus(GPIOB,KEYS_KEY1_PIN|KEYS_KEY2_PIN|KEYS_KEY3_PIN|KEYS_KEY4_PIN);
